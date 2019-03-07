@@ -182,6 +182,7 @@ public class TodoListActivity extends AppCompatActivity{
             case R.id.todoRegister:
                 // TODO登録画面に遷移
                 intent = new Intent(TodoListActivity.this, TodoRegisterActivity.class);
+                intent.putExtra("user",user);
                 startActivity(intent);
                 break;
             case R.id.todoUserInformation:

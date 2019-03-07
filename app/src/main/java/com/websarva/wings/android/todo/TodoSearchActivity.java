@@ -107,7 +107,7 @@ public class TodoSearchActivity extends AppCompatActivity implements DatePickerD
         DateType = 1;
         DialogFragment expireDateFragment = new DatePickerDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("class", "TodoSearchActivity");
+        bundle.putInt("class", FromClass.TODO_SEARCH_ACTIVITY);
         expireDateFragment.setArguments(bundle);
         expireDateFragment.show(getSupportFragmentManager(), "ExpireDatePickerDialogFragment");
     }
@@ -116,7 +116,7 @@ public class TodoSearchActivity extends AppCompatActivity implements DatePickerD
         DateType = 2;
         DialogFragment finishedDateFragment = new DatePickerDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("class", "TodoSearchActivity");
+        bundle.putInt("class", FromClass.TODO_SEARCH_ACTIVITY);
         finishedDateFragment.setArguments(bundle);
         finishedDateFragment.show(getSupportFragmentManager(), "FinishedDatePickerDialogFragment");
     }

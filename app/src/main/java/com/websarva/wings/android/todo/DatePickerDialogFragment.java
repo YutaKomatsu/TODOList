@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 
+import ActionType.FromClass;
+
 public class DatePickerDialogFragment extends DialogFragment implements
         DatePickerDialog.OnDateSetListener{
 
@@ -36,14 +38,14 @@ public class DatePickerDialogFragment extends DialogFragment implements
         }
 
 
-        String callFromClass = getArguments().getString("class");
+        int callFromClass = getArguments().getInt("class");
 
 
-        if (StringUtils.equals(callFromClass, "TodoRegisterActivity")) {
+        if (callFromClass == FromClass.TODO_REGISTER_ACTIVITY) {
             return new DatePickerDialog(getActivity(), (TodoRegisterActivity) getActivity(), year, month, day);
-        } else if (StringUtils.equals(callFromClass, "TodoUpdateActivity")) {
+        } else if (callFromClass == FromClass.TODO_UPDATE_ACTIVITY) {
             return new DatePickerDialog(getActivity(), (TodoUpdateActivity) getActivity(), year, month, day);
-        } else if (StringUtils.equals(callFromClass, "TodoSearchActivity")) {
+        } else if (callFromClass == FromClass.TODO_SEARCH_ACTIVITY) {
             return new DatePickerDialog(getActivity(), (TodoSearchActivity) getActivity(), year, month, day);
         } else  {
             return null;

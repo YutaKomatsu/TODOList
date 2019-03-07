@@ -116,7 +116,7 @@ public class TodoUpdateActivity extends AppCompatActivity implements DatePickerD
         DateType = 1;
         DialogFragment expireDateFragment = new DatePickerDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("class", "TodoUpdateActivity");
+        bundle.putInt("class", FromClass.TODO_UPDATE_ACTIVITY);
         bundle.putString("Date",expireDateView.getText().toString());
 
         expireDateFragment.setArguments(bundle);
@@ -127,7 +127,7 @@ public class TodoUpdateActivity extends AppCompatActivity implements DatePickerD
         DateType = 2;
         DialogFragment finishedDateFragment = new DatePickerDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("class", "TodoUpdateActivity");
+        bundle.putInt("class", FromClass.TODO_UPDATE_ACTIVITY);
         bundle.putString("Date",finishedDateView.getText().toString());
         finishedDateFragment.setArguments(bundle);
         finishedDateFragment.show(getSupportFragmentManager(), "FinishedDatePickerDialogFragment");

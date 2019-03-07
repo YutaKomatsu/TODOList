@@ -1,6 +1,7 @@
 package com.websarva.wings.android.todo;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,11 +28,18 @@ import model.User;
 public class TodoRegisterActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextView ExpireDate;
     private KeyValuePairAdapter adapter;
+    private User loginUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_register);
+
+        //ログインユーザーを取得
+        Intent intent = getIntent();
+        loginUser = (User)intent.getSerializableExtra("user");
+        //intentのユーザー情報を削除
+        intent.removeExtra("user");
 
         //ユーザーリストを取得
         UserListLogic userListLogic = new UserListLogic();
@@ -47,6 +55,7 @@ public class TodoRegisterActivity extends AppCompatActivity implements DatePicke
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner = findViewById(R.id.tvUserNameInput);
         spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(new Pair<String, String>(loginUser.getId(),loginUser.getName())));
 
         //期限日のTextViewにidをセット
         ExpireDate = findViewById(R.id.tvExpireDateInput);
@@ -112,7 +121,7 @@ public class TodoRegisterActivity extends AppCompatActivity implements DatePicke
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("class","TodoRegisterActivity");
+        bundle.putInt("class",FromClass.TODO_REGISTER_ACTIVITY);
         bundle.putString("Date",ExpireDate.getText().toString());
         newFragment.setArguments(bundle);
         newFragment.show(getSupportFragmentManager(), "DatePickerDialogFragment");

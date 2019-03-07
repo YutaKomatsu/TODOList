@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+//SQLite用ヘルパークラス(現在は未使用)
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "todo.db";
     private static final int DATABASE_VERSION = 1;
@@ -15,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        StringBuilder sb = new StringBuilder();
+        /*StringBuilder sb = new StringBuilder();
         sb.append("create table todo_user (");
         sb.append("id text primary key,");
         sb.append("name text not null,");
@@ -50,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         sql = sb.toString();
 
-        db.execSQL(sql);
+        db.execSQL(sql);*/
     }
 
     @Override

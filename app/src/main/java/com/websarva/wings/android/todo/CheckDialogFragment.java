@@ -19,13 +19,15 @@ import model.TodoItem;
 import model.TodoUnderWay;
 
 public class CheckDialogFragment extends DialogFragment {
-    //  分岐用private変数
+    // 実行分岐用の変数
     private int root = 0;
+    //アクティビティの終了分岐
     private boolean finishActivity;
     //操作するTODOのID
     private TodoItem todoItem;
     //操作する進捗のID
     private TodoUnderWay todoUnderWay;
+    //遷移元クラス変数
     private int fromClass;
     @Override
     public Dialog onCreateDialog(Bundle errorInstanceState){
@@ -39,9 +41,11 @@ public class CheckDialogFragment extends DialogFragment {
         builder.setMessage(getArguments().getString("msg"));
         //ログイン画面へ遷移するボタンを設定
         builder.setPositiveButton(getArguments().getString("button"), new DialogButtonClickListener());
-        //分岐の設定
+        //実行分岐の取得
         root = getArguments().getInt("root");
+        //遷移元クラスの取得
         fromClass = getArguments().getInt("fromClass");
+        //アクティビティ終了分岐の取得
         finishActivity = getArguments().getBoolean("finishActivity");
         //TODOを取得
         todoItem = (TodoItem)getArguments().getSerializable("todoItem");
@@ -75,9 +79,9 @@ public class CheckDialogFragment extends DialogFragment {
                             dialogFragment.setArguments(bundle);
                             dialogFragment.show(getActivity().getSupportFragmentManager(), "ResultDialogFragment");
                             break;
-                        //削除
+                        //TODO削除
                         case DialogActionType.TODO_DELETE:
-                            //todoを削除する
+                            //TODOを削除する
                             TodoDeleteLogic todoDeleteLogic = new TodoDeleteLogic();
                             //削除結果の成否で分岐する
                             if(todoDeleteLogic.execute(todoItem.getId(),getActivity())) {
@@ -105,7 +109,7 @@ public class CheckDialogFragment extends DialogFragment {
                             break;
                         //TODOの完了
                         case DialogActionType.TODO_FINISHED:
-                            //todoを完了させる
+                            //TODOを完了させる
                             TodoFinishedLogic todoFinishedLogic = new TodoFinishedLogic();
                             if(todoFinishedLogic.execute(todoItem,getActivity())) {
                                 // TODO完了ダイアログフラグメントオブジェクトを生成
@@ -160,20 +164,23 @@ public class CheckDialogFragment extends DialogFragment {
                     }
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
-                    //詳細画面から呼び出された場合
                     switch (fromClass){
+                        //TODOリスト画面から呼び出された場合、TODOリスト画面を更新する
                         case FromClass.TODO_LIST_ACTIVITY:
                             TodoListActivity todoListActivity = (TodoListActivity)getActivity();
                             todoListActivity.onRestart();
                             break;
+                        //TODO詳細情報画面から呼び出された場合、TODO詳細情報画面を更新する
                         case FromClass.TODO_INFORMATION_ACTIVITY:
                             TodoInformationActivity todoInformationActivity = (TodoInformationActivity)getActivity();
                             todoInformationActivity.onRestart();
                             break;
+                        //TODO進捗リスト画面から呼び出された場合、TODO進捗リスト画面を更新する
                         case FromClass.TODO_UNDER_WAY_LIST_ACTIVITY:
                             TodoUnderWayListActivity todoUnderWayListActivity = (TodoUnderWayListActivity)getActivity();
                             todoUnderWayListActivity.onRestart();
                             break;
+                        //TODO進捗詳細情報画面から呼び出された場合、TODO進捗詳細情報画面を更新する
                         case FromClass.TODO_UNDER_WAY_INFORMATION_ACTIVITY:
                             TodoUnderWayInformationActivity todoUnderWayInformationActivity = (TodoUnderWayInformationActivity)getActivity();
                             todoUnderWayInformationActivity.onRestart();
