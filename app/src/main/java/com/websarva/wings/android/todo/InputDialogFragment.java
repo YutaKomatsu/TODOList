@@ -14,12 +14,14 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
+import ActionType.DialogActionType;
+import ActionType.FromClass;
 import model.User;
 
 public class InputDialogFragment extends DialogFragment {
-    User user;
-    String action;
-    View inputView;
+    private User user;
+    private int action;
+    private View inputView;
     @Override
     public Dialog onCreateDialog(Bundle errorInstanceState){
         //レイアウトの呼び出し
@@ -38,7 +40,7 @@ public class InputDialogFragment extends DialogFragment {
         //ユーザー情報を取得
         user = (User)getArguments().getSerializable("user");
         //実行内容を取得
-        action = getArguments().getString("action");
+        action = getArguments().getInt("action");
 
 
         //キャンセルボタンを設定
@@ -55,11 +57,12 @@ public class InputDialogFragment extends DialogFragment {
                     EditText editText = inputView.findViewById(R.id.dialog_edittext);
                     //入力値とパスワードを比較
                     if(StringUtils.equals(editText.getText().toString(),user.getPass())){
-                        if(StringUtils.equals(action,"showPassword")) {
+                        if(action == DialogActionType.SHOW_PASSWORD) {
                             // UserInformationActivityのインスタンスを取得
                             UserInformationActivity userInformationActivity = (UserInformationActivity) getActivity();
                             userInformationActivity.showPassword();
                         }else{
+                            //ユーザー情報更新画面へ遷移
                             Intent intent = new Intent(getContext(),UserUpdateActivity.class);
                             intent.putExtra("user",user);
                             startActivity(intent);
@@ -71,7 +74,7 @@ public class InputDialogFragment extends DialogFragment {
                         Bundle args = new Bundle();
                         args.putStringArrayList("inputErrorList", inputErrorList);
                         args.putBoolean("onResumeFlag",false);
-                        args.putString("fromClass", "UserInformationActivity");
+                        args.putInt("fromClass", FromClass.USER_INFORMATION_ACTIVITY);
                         dialogFragment.setArguments(args);
                         dialogFragment.show(getActivity().getSupportFragmentManager(), "ErrorDialogFragment");
                     }

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
+import ActionType.FromClass;
 import Logic.TodoUnderWayRegisterLogic;
 import model.TodoUnderWay;
 
@@ -89,7 +90,7 @@ public class TodoUnderWayRegisterActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag",false);
-                    args.putString("fromClass", "TodoUnderWayRegisterActivity");
+                    args.putInt("fromClass",FromClass.TODO_UNDER_WAY_REGISTER_ACTIVITY);
                     dialogFragment.setArguments(args);
                     dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
                 }
@@ -99,7 +100,7 @@ public class TodoUnderWayRegisterActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoUnderWayRegisterActivity");
+                args.putInt("fromClass",FromClass.TODO_UNDER_WAY_REGISTER_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

@@ -26,13 +26,13 @@ import okhttp3.ResponseBody;
 
 
 public class TodoItemPHP extends AsyncTask<String, Void, String> {
-    TodoItem setTodoItem;
-    TodoItem getTodoItem;
-    List<TodoItem> todoList = new ArrayList<>();
-    Search search;
-    String actionType;
-    boolean result;
-    CountDownLatch latch;
+    private TodoItem setTodoItem;
+    private TodoItem getTodoItem;
+    private List<TodoItem> todoList = new ArrayList<>();
+    private Search search;
+    private String actionType;
+    private boolean result;
+    private CountDownLatch latch;
     final public static String GET_TODO_LIST = "0";
     final public static String GET_TODO_ITEM= "1";
     final public static String INSERT_TODO = "2";

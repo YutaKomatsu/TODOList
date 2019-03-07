@@ -27,12 +27,12 @@ import okhttp3.ResponseBody;
 
 
 public class TodoUserPHP extends AsyncTask<String, Void, String> {
-    User setUser;
-    User getUser;
-    List<User> userList = new ArrayList<>();
-    String actionType;
-    boolean result;
-    CountDownLatch latch;
+    private User setUser;
+    private User getUser;
+    private List<User> userList = new ArrayList<>();
+    private String actionType;
+    private boolean result;
+    private CountDownLatch latch;
     final public static String GET_USER_LIST = "0";
     final public static String GET_USER_ITEM= "1";
     final public static String INSERT_USER = "2";

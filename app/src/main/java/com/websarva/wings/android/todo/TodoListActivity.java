@@ -1,9 +1,6 @@
 package com.websarva.wings.android.todo;
 
-import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,9 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,28 +21,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ActionType.FromClass;
 import Listener.RecyclerItemClickListener;
-import Logic.TodoDeleteLogic;
 import Logic.TodoItemLogic;
 import Logic.TodoListLogic;
 import Logic.TodoSearchLogic;
 import Logic.UserInfoLogic;
-import model.DialogActionType;
+import ActionType.DialogActionType;
 import model.Search;
 import model.TodoItem;
 import model.User;
 
 public class TodoListActivity extends AppCompatActivity{
     //ログインユーザーの情報を格納するprivate変数
-    User user;
-    TextView welcomeUser;
-    RecyclerView view;
+    private User user;
+    private TextView welcomeUser;
+    private RecyclerView view;
     //TODOリスト
-    List<TodoItem> todoList;
+    private List<TodoItem> todoList;
     //TODOリスト検索の条件
-    Search search;
+    private Search search;
     //検索解除ボタン
-    Button searchCancelButton;
+    private Button searchCancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,9 +173,9 @@ public class TodoListActivity extends AppCompatActivity{
                 bundle.putString("title",getString(R.string.tv_check));
                 bundle.putString("msg",getString(R.string.tv_logoutCheck));
                 bundle.putString("button",getString(R.string.tv_logout));
-                bundle.putInt("root", DialogActionType.LOGOUT);
+                bundle.putInt("root", DialogActionType.TODO_LOGOUT);
                 bundle.putBoolean("finishActivity",true);
-                bundle.putString("fromClass","TodoListActivity");
+                bundle.putInt("fromClass",FromClass.TODO_LIST_ACTIVITY);
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(getSupportFragmentManager(),"CheckDialogFragment");
                 break;
@@ -317,8 +312,8 @@ public class TodoListActivity extends AppCompatActivity{
                         + "\n" + getString(R.string.tv_workName) + ":" + todoList.get(position).getWorkName()
                         + "\n" + getString(R.string.tv_workUserName) + ":" + todoList.get(position).getUserName());
                 bundle.putString("button", getString(R.string.tv_delete));
-                bundle.putInt("root", DialogActionType.DELETE);
-                bundle.putString("fromClass", "TodoListActivity");
+                bundle.putInt("root", DialogActionType.TODO_DELETE);
+                bundle.putInt("fromClass",FromClass.TODO_LIST_ACTIVITY);
                 bundle.putBoolean("finishActivity", false);
                 //削除するTODOの情報をを渡す
                 bundle.putSerializable("todoItem", todoList.get(position));
@@ -332,7 +327,7 @@ public class TodoListActivity extends AppCompatActivity{
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",true);
-                args.putString("fromClass", "TodoListActivity");
+                args.putInt("fromClass",FromClass.TODO_LIST_ACTIVITY);
                 errorDialogFragment.setArguments(args);
                 errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }
@@ -355,8 +350,8 @@ public class TodoListActivity extends AppCompatActivity{
                             + "\n" + getString(R.string.tv_workName) + ":" + todoList.get(position).getWorkName()
                             + "\n" + getString(R.string.tv_workUserName) + ":" + todoList.get(position).getUserName());
                     bundle.putString("button", getString(R.string.tv_finish));
-                    bundle.putInt("root", DialogActionType.FINISHED);
-                    bundle.putString("fromClass", "TodoListActivity");
+                    bundle.putInt("root", DialogActionType.TODO_FINISHED);
+                    bundle.putInt("fromClass",FromClass.TODO_LIST_ACTIVITY);
                     bundle.putBoolean("finishActivity", false);
                     //完了させるTODOの情報を生成
                     Calendar now = Calendar.getInstance();
@@ -375,7 +370,7 @@ public class TodoListActivity extends AppCompatActivity{
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag", true);
-                    args.putString("fromClass", "TodoListActivity");
+                    args.putInt("fromClass",FromClass.TODO_LIST_ACTIVITY);
                     errorDialogFragment.setArguments(args);
                     errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
                 }
@@ -387,7 +382,7 @@ public class TodoListActivity extends AppCompatActivity{
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",true);
-                args.putString("fromClass", "TodoListActivity");
+                args.putInt("fromClass",FromClass.TODO_LIST_ACTIVITY);
                 errorDialogFragment.setArguments(args);
                 errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

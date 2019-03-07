@@ -9,12 +9,13 @@ import android.widget.EditText;
 
 import java.util.ArrayList;
 
+import ActionType.FromClass;
 import Logic.LoginLogic;
 import model.User;
 
 public class TodoLoginActivity extends AppCompatActivity {
-    EditText inputUserID;
-    EditText inputPassword;
+    private EditText inputUserID;
+    private EditText inputPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class TodoLoginActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoLoginActivity");
+                args.putInt("fromClass",FromClass.TODO_LOGIN_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
                 inputUserID.setText("");

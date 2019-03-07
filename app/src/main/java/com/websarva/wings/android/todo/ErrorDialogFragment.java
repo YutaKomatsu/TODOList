@@ -10,14 +10,17 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+import ActionType.FromClass;
+
 public class ErrorDialogFragment extends DialogFragment {
-    boolean onResumeFlag;
-    private String fromClass;
+    private boolean onResumeFlag;
+    private int fromClass;
 
     @Override
     public Dialog onCreateDialog(Bundle errorInstanceState){
         String inputErrorMsg = "";
-
+        //ダイアログのキャンセルを無効化
+        this.setCancelable(false);
         //ダイアログビルダーを生成
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //ダイアログのタイトルを設定
@@ -25,7 +28,7 @@ public class ErrorDialogFragment extends DialogFragment {
         //ダイアログのメッセージを設定
         List<String> inputErrorList = getArguments().getStringArrayList("inputErrorList");
         onResumeFlag = getArguments().getBoolean("onResumeFlag");
-        fromClass = getArguments().getString("fromClass");
+        fromClass = getArguments().getInt("fromClass");
         for(String inputError : inputErrorList){
             inputErrorMsg += inputError + "\n";
         }
@@ -42,21 +45,29 @@ public class ErrorDialogFragment extends DialogFragment {
             switch(witch){
                 case DialogInterface.BUTTON_POSITIVE:
                     if(onResumeFlag) {
-                        if(StringUtils.equals(fromClass,"TodoLoginActivity")){
-                            TodoLoginActivity todoLoginActivity = (TodoLoginActivity)getActivity();
-                            todoLoginActivity.onResume();
-                        }else if(StringUtils.equals(fromClass,"TodoListActivity")){
-                            TodoListActivity todoListActivity = (TodoListActivity)getActivity();
-                            todoListActivity.onRestart();
-                        }else if(StringUtils.equals(fromClass,"TodoInformationActivity")){
-                            TodoInformationActivity todoInformationActivity = (TodoInformationActivity)getActivity();
-                            todoInformationActivity.onRestart();
-                        }else if(StringUtils.equals(fromClass,"TodoUnderWayListActivity")){
-                            TodoUnderWayListActivity todoUnderWayListActivity = (TodoUnderWayListActivity)getActivity();
-                            todoUnderWayListActivity.onRestart();
-                        } else if(StringUtils.equals(fromClass,"TodoUnderWayInformationActivity")){
-                            TodoUnderWayInformationActivity todoUnderWayInformationActivity = (TodoUnderWayInformationActivity)getActivity();
-                            todoUnderWayInformationActivity.onRestart();
+                        switch (fromClass){
+                            case FromClass.TODO_LOGIN_ACTIVITY:
+                                TodoLoginActivity todoLoginActivity = (TodoLoginActivity)getActivity();
+                                todoLoginActivity.onResume();
+                                break;
+                            case FromClass.TODO_LIST_ACTIVITY:
+                                TodoListActivity todoListActivity = (TodoListActivity)getActivity();
+                                todoListActivity.onRestart();
+                                break;
+                            case FromClass.TODO_INFORMATION_ACTIVITY:
+                                TodoInformationActivity todoInformationActivity = (TodoInformationActivity)getActivity();
+                                todoInformationActivity.onRestart();
+                                break;
+                            case FromClass.TODO_UNDER_WAY_LIST_ACTIVITY:
+                                TodoUnderWayListActivity todoUnderWayListActivity = (TodoUnderWayListActivity)getActivity();
+                                todoUnderWayListActivity.onRestart();
+                                break;
+                            case FromClass.TODO_UNDER_WAY_INFORMATION_ACTIVITY:
+                                TodoUnderWayInformationActivity todoUnderWayInformationActivity = (TodoUnderWayInformationActivity)getActivity();
+                                todoUnderWayInformationActivity.onRestart();
+                                break;
+                            default:
+                                break;
                         }
                     }
                     break;

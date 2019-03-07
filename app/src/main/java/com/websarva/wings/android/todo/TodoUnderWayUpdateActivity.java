@@ -11,12 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
+import ActionType.FromClass;
 import Logic.TodoUnderWayUpdateLogic;
 import model.TodoUnderWay;
 
 public class TodoUnderWayUpdateActivity extends AppCompatActivity {
     //private変数
-    TodoUnderWay todoUnderWay;
+    private TodoUnderWay todoUnderWay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,7 @@ public class TodoUnderWayUpdateActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag",false);
-                    args.putString("fromClass", "TodoUnderWayUpdateActivity");
+                    args.putInt("fromClass",FromClass.TODO_UNDER_WAY_UPDATE_ACTIVITY);
                     dialogFragment.setArguments(args);
                     dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
                 }
@@ -105,7 +106,7 @@ public class TodoUnderWayUpdateActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoUnderWayUpdateActivity");
+                args.putInt("fromClass",FromClass.TODO_UNDER_WAY_UPDATE_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

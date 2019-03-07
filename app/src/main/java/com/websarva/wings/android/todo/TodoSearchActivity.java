@@ -21,17 +21,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ActionType.FromClass;
 import Logic.UserListLogic;
 import model.Search;
 import model.TodoItem;
 import model.User;
 
 public class TodoSearchActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
-    Search search;
-    KeyValuePairAdapter adapter;
-    TextView expireDateView;
-    TextView finishedDateView;
-    int DateType;   //1:期限日、2:完了日
+    private Search search;
+    private KeyValuePairAdapter adapter;
+    private TextView expireDateView;
+    private TextView finishedDateView;
+    private int DateType;   //1:期限日、2:完了日
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +95,7 @@ public class TodoSearchActivity extends AppCompatActivity implements DatePickerD
             Bundle args = new Bundle();
             args.putStringArrayList("inputErrorList", inputErrorList);
             args.putBoolean("onResumeFlag",false);
-            args.putString("fromClass", "TodoSearchActivity");
+            args.putInt("fromClass",FromClass.TODO_SEARCH_ACTIVITY);
             dialogFragment.setArguments(args);
             dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
         }
@@ -198,7 +199,7 @@ public class TodoSearchActivity extends AppCompatActivity implements DatePickerD
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoSearchActivity");
+                args.putInt("fromClass",FromClass.TODO_SEARCH_ACTIVITY);
                 errorDialogFragment.setArguments(args);
                 errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

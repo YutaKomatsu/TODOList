@@ -12,20 +12,21 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import ActionType.FromClass;
 import Logic.TodoItemLogic;
-import model.DialogActionType;
+import ActionType.DialogActionType;
 import model.TodoItem;
 import model.User;
 
 public class TodoInformationActivity extends AppCompatActivity {
     //private変数
-    int todoId;
-    User user;
-    TodoItem todoItem;
-    TextView workNameView;
-    TextView userNameView;
-    TextView expireDateView;
-    TextView finishedDateView;
+    private int todoId;
+    private User user;
+    private TodoItem todoItem;
+    private TextView workNameView;
+    private TextView userNameView;
+    private TextView expireDateView;
+    private TextView finishedDateView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +112,8 @@ public class TodoInformationActivity extends AppCompatActivity {
             bundle.putString("title",getString(R.string.tv_check));
             bundle.putString("msg",getString(R.string.tv_deleteCheck));
             bundle.putString("button",getString(R.string.tv_delete));
-            bundle.putInt("root",DialogActionType.DELETE);
-            bundle.putString("fromClass","TodoInformationActivity");
+            bundle.putInt("root",DialogActionType.TODO_DELETE);
+            bundle.putInt("fromClass",FromClass.TODO_INFORMATION_ACTIVITY);
             bundle.putBoolean("finishActivity",true);
             //削除するTODOの情報をを渡す
             bundle.putSerializable("todoItem",todoItem);
@@ -136,8 +137,8 @@ public class TodoInformationActivity extends AppCompatActivity {
                 bundle.putString("title", getString(R.string.tv_check));
                 bundle.putString("msg", getString(R.string.tv_finishedCheck));
                 bundle.putString("button", getString(R.string.tv_finish));
-                bundle.putInt("root", DialogActionType.FINISHED);
-                bundle.putString("fromClass","TodoInformationActivity");
+                bundle.putInt("root", DialogActionType.TODO_FINISHED);
+                bundle.putInt("fromClass",FromClass.TODO_INFORMATION_ACTIVITY);
                 bundle.putBoolean("finishActivity", false);
                 //完了させるTODOの情報を生成
                 Calendar now = Calendar.getInstance();
@@ -156,7 +157,7 @@ public class TodoInformationActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoInformationActivity");
+                args.putInt("fromClass",FromClass.TODO_INFORMATION_ACTIVITY);
                 errorDialogFragment.setArguments(args);
                 errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

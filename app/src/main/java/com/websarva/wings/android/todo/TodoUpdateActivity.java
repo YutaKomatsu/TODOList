@@ -19,18 +19,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ActionType.FromClass;
 import Logic.TodoUpdateLogic;
 import Logic.UserListLogic;
 import model.TodoItem;
 import model.User;
 
 public class TodoUpdateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
-    TodoItem todoItem;
-    EditText workNameView;
-    KeyValuePairAdapter adapter;
-    TextView expireDateView;
-    TextView finishedDateView;
-    int DateType;   //1:期限日、2:完了日
+    private TodoItem todoItem;
+    private EditText workNameView;
+    private KeyValuePairAdapter adapter;
+    private TextView expireDateView;
+    private TextView finishedDateView;
+    private int DateType;   //1:期限日、2:完了日
 
 
     @Override
@@ -103,7 +104,7 @@ public class TodoUpdateActivity extends AppCompatActivity implements DatePickerD
             Bundle args = new Bundle();
             args.putStringArrayList("inputErrorList", inputErrorList);
             args.putBoolean("onResumeFlag",false);
-            args.putString("fromClass", "TodoUpdateActivity");
+            args.putInt("fromClass",FromClass.TODO_UPDATE_ACTIVITY);
             dialogFragment.setArguments(args);
             dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
         }
@@ -205,7 +206,7 @@ public class TodoUpdateActivity extends AppCompatActivity implements DatePickerD
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag",false);
-                    args.putString("fromClass", "TodoUpdateActivity");
+                    args.putInt("fromClass",FromClass.TODO_UPDATE_ACTIVITY);
                     dialogFragment.setArguments(args);
                     dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
                 }
@@ -215,7 +216,7 @@ public class TodoUpdateActivity extends AppCompatActivity implements DatePickerD
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoUpdateActivity");
+                args.putInt("fromClass",FromClass.TODO_UPDATE_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

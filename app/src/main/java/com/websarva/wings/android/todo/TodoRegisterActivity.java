@@ -18,14 +18,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ActionType.FromClass;
 import Logic.TodoRegisterLogic;
 import Logic.UserListLogic;
 import model.TodoItem;
 import model.User;
 
 public class TodoRegisterActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    TextView ExpireDate;
-    KeyValuePairAdapter adapter;
+    private TextView ExpireDate;
+    private KeyValuePairAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,7 @@ public class TodoRegisterActivity extends AppCompatActivity implements DatePicke
             Bundle args = new Bundle();
             args.putStringArrayList("inputErrorList", inputErrorList);
             args.putBoolean("onResumeFlag",false);
-            args.putString("fromClass", "TodoRegisterActivity");
+            args.putInt("fromClass",FromClass.TODO_REGISTER_ACTIVITY);
             dialogFragment.setArguments(args);
             dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
         }
@@ -177,7 +178,7 @@ public class TodoRegisterActivity extends AppCompatActivity implements DatePicke
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag",false);
-                    args.putString("fromClass", "TodoRegisterActivity");
+                    args.putInt("fromClass",FromClass.TODO_REGISTER_ACTIVITY);
                     dialogFragment.setArguments(args);
                     dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
                 }
@@ -187,7 +188,7 @@ public class TodoRegisterActivity extends AppCompatActivity implements DatePicke
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "TodoRegisterActivity");
+                args.putInt("fromClass",FromClass.TODO_REGISTER_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

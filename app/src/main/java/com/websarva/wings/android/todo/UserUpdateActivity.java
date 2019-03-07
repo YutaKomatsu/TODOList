@@ -11,13 +11,15 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+
+import ActionType.FromClass;
 import Logic.UserUpdateLogic;
 import model.User;
 
 public class UserUpdateActivity extends AppCompatActivity {
     //private変数
-    TextView inputUserID;
-    EditText inputUserName;
+    private TextView inputUserID;
+    private EditText inputUserName;
 
 
     @Override
@@ -96,6 +98,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                     bundle.putString("msg",getString(R.string.tv_userUpdateResult));
                     bundle.putString("button",getString(R.string.tv_backUserInformationMenu));
                     bundle.putBoolean("finishActivity",true);
+                    bundle.putInt("fromClass", FromClass.USER_UPDATE_ACTIVITY);
                     dialogFragment.setArguments(bundle);
                     dialogFragment.show(getSupportFragmentManager(),"ResultDialogFragment");
                 //更新失敗時の処理
@@ -106,7 +109,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag",false);
-                    args.putString("fromClass", "UserUpdateActivity");
+                    args.putInt("fromClass", FromClass.USER_UPDATE_ACTIVITY);
                     dialogFragment.setArguments(args);
                     dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
                 }
@@ -116,7 +119,7 @@ public class UserUpdateActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "UserUpdateActivity");
+                args.putInt("fromClass", FromClass.USER_UPDATE_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
             }

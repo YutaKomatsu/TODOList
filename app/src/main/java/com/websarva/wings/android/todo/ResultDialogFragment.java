@@ -8,13 +8,13 @@ import android.support.v4.app.DialogFragment;
 
 import org.apache.commons.lang3.StringUtils;
 
-import model.DialogActionType;
+import ActionType.FromClass;
 
 public class ResultDialogFragment extends DialogFragment {
     //  分岐用private変数
     private boolean finishActivity;
     private int root = 0;
-    private String fromClass;
+    private int fromClass;
 
     @Override
     public Dialog onCreateDialog(Bundle errorInstanceState){
@@ -31,7 +31,7 @@ public class ResultDialogFragment extends DialogFragment {
         //アクティビティを終了させるかどうかを判定するフラグを取得
         finishActivity = getArguments().getBoolean("finishActivity");
         root = getArguments().getInt("root");
-        fromClass = getArguments().getString("fromClass");
+        fromClass = getArguments().getInt("fromClass");
         AlertDialog dialog = builder.create();
         return dialog;
     }
@@ -44,18 +44,25 @@ public class ResultDialogFragment extends DialogFragment {
                     if(finishActivity) {
                         getActivity().finish();
                     }else{
-                        if(StringUtils.equals(fromClass,"TodoListActivity")){
+                        switch (fromClass){
+                            case FromClass.TODO_LIST_ACTIVITY:
                                 TodoListActivity todoListActivity = (TodoListActivity) getActivity();
                                 todoListActivity.onRestart();
-                        }else if(StringUtils.equals(fromClass,"TodoInformationActivity")){
+                                break;
+                            case FromClass.TODO_INFORMATION_ACTIVITY:
                                 TodoInformationActivity todoInformationActivity = (TodoInformationActivity)getActivity();
                                 todoInformationActivity.onRestart();
-                        }else if(StringUtils.equals(fromClass,"TodoUnderWayListActivity")){
+                                break;
+                            case FromClass.TODO_UNDER_WAY_LIST_ACTIVITY:
                                 TodoUnderWayListActivity todoUnderWayListActivity = (TodoUnderWayListActivity) getActivity();
                                 todoUnderWayListActivity.onRestart();
-                        }else if(StringUtils.equals(fromClass,"TodoUnderWayInformationActivity")){
+                                break;
+                            case FromClass.TODO_UNDER_WAY_INFORMATION_ACTIVITY:
                                 TodoUnderWayInformationActivity todoUnderWayInformationActivity = (TodoUnderWayInformationActivity)getActivity();
                                 todoUnderWayInformationActivity.onRestart();
+                                break;
+                            default:
+                                break;
                         }
                     }
                     break;

@@ -5,18 +5,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
+import ActionType.FromClass;
 import Logic.TodoDeleteLogic;
 import Logic.TodoFinishedLogic;
 import Logic.TodoUnderWayDeleteLogic;
-import model.DialogActionType;
+import ActionType.DialogActionType;
 import model.TodoItem;
 import model.TodoUnderWay;
 
@@ -28,9 +26,11 @@ public class CheckDialogFragment extends DialogFragment {
     private TodoItem todoItem;
     //操作する進捗のID
     private TodoUnderWay todoUnderWay;
-    private String fromClass;
+    private int fromClass;
     @Override
     public Dialog onCreateDialog(Bundle errorInstanceState){
+        //ダイアログのキャンセルを無効化
+        this.setCancelable(false);
         //ダイアログビルダーを生成
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //ダイアログのタイトルを設定
@@ -41,7 +41,7 @@ public class CheckDialogFragment extends DialogFragment {
         builder.setPositiveButton(getArguments().getString("button"), new DialogButtonClickListener());
         //分岐の設定
         root = getArguments().getInt("root");
-        fromClass = getArguments().getString("fromClass");
+        fromClass = getArguments().getInt("fromClass");
         finishActivity = getArguments().getBoolean("finishActivity");
         //TODOを取得
         todoItem = (TodoItem)getArguments().getSerializable("todoItem");
@@ -65,18 +65,18 @@ public class CheckDialogFragment extends DialogFragment {
                     Bundle bundle = new Bundle();
                     switch (root) {
                         //ログアウト
-                        case DialogActionType.LOGOUT:
+                        case DialogActionType.TODO_LOGOUT:
                             // ログアウト完了ダイアログフラグメントオブジェクトを生成
                             bundle.putString("title",getString(R.string.tv_logout) + getString(R.string.tv_finish));
                             bundle.putString("msg", getString(R.string.tv_logoutResult));
                             bundle.putString("button", getString(R.string.tv_close));
-                            bundle.putString("fromClass", fromClass);
+                            bundle.putInt("fromClass", fromClass);
                             bundle.putBoolean("finishActivity",finishActivity);
                             dialogFragment.setArguments(bundle);
                             dialogFragment.show(getActivity().getSupportFragmentManager(), "ResultDialogFragment");
                             break;
                         //削除
-                        case DialogActionType.DELETE:
+                        case DialogActionType.TODO_DELETE:
                             //todoを削除する
                             TodoDeleteLogic todoDeleteLogic = new TodoDeleteLogic();
                             //削除結果の成否で分岐する
@@ -87,7 +87,7 @@ public class CheckDialogFragment extends DialogFragment {
                                 bundle.putString("button", getString(R.string.tv_close));
                                 bundle.putBoolean("finishActivity",finishActivity);
                                 bundle.putInt("root",root);
-                                bundle.putString("fromClass", fromClass);
+                                bundle.putInt("fromClass", fromClass);
                                 dialogFragment.setArguments(bundle);
                                 dialogFragment.show(getActivity().getSupportFragmentManager(), "ResultDialogFragment");
                             }else{
@@ -98,12 +98,13 @@ public class CheckDialogFragment extends DialogFragment {
                                 Bundle args = new Bundle();
                                 args.putStringArrayList("inputErrorList", inputErrorList);
                                 args.putBoolean("onResumeFlag",false);
-                                args.putString("fromClass", fromClass);
+                                args.putInt("fromClass", fromClass);
                                 errorDialogFragment.setArguments(args);
                                 errorDialogFragment.show(getActivity().getSupportFragmentManager(), "ErrorDialogFragment");
                             }
                             break;
-                        case DialogActionType.FINISHED:
+                        //TODOの完了
+                        case DialogActionType.TODO_FINISHED:
                             //todoを完了させる
                             TodoFinishedLogic todoFinishedLogic = new TodoFinishedLogic();
                             if(todoFinishedLogic.execute(todoItem,getActivity())) {
@@ -112,7 +113,7 @@ public class CheckDialogFragment extends DialogFragment {
                                 bundle.putString("msg", getString(R.string.tv_finishedResult));
                                 bundle.putString("button", getString(R.string.tv_close));
                                 bundle.putBoolean("finishActivity",finishActivity);
-                                bundle.putString("fromClass", fromClass);
+                                bundle.putInt("fromClass", fromClass);
                                 dialogFragment.setArguments(bundle);
                                 dialogFragment.show(getActivity().getSupportFragmentManager(), "ResultDialogFragment");
                             }else{
@@ -123,7 +124,7 @@ public class CheckDialogFragment extends DialogFragment {
                                 Bundle args = new Bundle();
                                 args.putStringArrayList("inputErrorList", inputErrorList);
                                 args.putBoolean("onResumeFlag",false);
-                                args.putString("fromClass", fromClass);
+                                args.putInt("fromClass", fromClass);
                                 errorDialogFragment.setArguments(args);
                                 errorDialogFragment.show(getActivity().getSupportFragmentManager(), "ErrorDialogFragment");
                             }
@@ -140,7 +141,7 @@ public class CheckDialogFragment extends DialogFragment {
                                 bundle.putString("button", getString(R.string.tv_close));
                                 bundle.putBoolean("finishActivity",finishActivity);
                                 bundle.putInt("root",root);
-                                bundle.putString("fromClass", fromClass);
+                                bundle.putInt("fromClass", fromClass);
                                 dialogFragment.setArguments(bundle);
                                 dialogFragment.show(getActivity().getSupportFragmentManager(), "ResultDialogFragment");
                             }else{
@@ -151,7 +152,7 @@ public class CheckDialogFragment extends DialogFragment {
                                 Bundle args = new Bundle();
                                 args.putStringArrayList("inputErrorList", inputErrorList);
                                 args.putBoolean("onResumeFlag",false);
-                                args.putString("fromClass", fromClass);
+                                args.putInt("fromClass", fromClass);
                                 errorDialogFragment.setArguments(args);
                                 errorDialogFragment.show(getActivity().getSupportFragmentManager(), "ErrorDialogFragment");
                             }
@@ -160,18 +161,25 @@ public class CheckDialogFragment extends DialogFragment {
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     //詳細画面から呼び出された場合
-                    if(StringUtils.equals(fromClass,"TodoListActivity")){
-                        TodoListActivity todoListActivity = (TodoListActivity)getActivity();
-                        todoListActivity.onRestart();
-                    }else if(StringUtils.equals(fromClass,"TodoInformationActivity")){
-                        TodoInformationActivity todoInformationActivity = (TodoInformationActivity)getActivity();
-                        todoInformationActivity.onRestart();
-                    }else if(StringUtils.equals(fromClass,"TodoUnderWayListActivity")){
-                        TodoUnderWayListActivity todoUnderWayListActivity = (TodoUnderWayListActivity)getActivity();
-                        todoUnderWayListActivity.onRestart();
-                    } else if(StringUtils.equals(fromClass,"TodoUnderWayInformationActivity")){
-                        TodoUnderWayInformationActivity todoUnderWayInformationActivity = (TodoUnderWayInformationActivity)getActivity();
-                        todoUnderWayInformationActivity.onRestart();
+                    switch (fromClass){
+                        case FromClass.TODO_LIST_ACTIVITY:
+                            TodoListActivity todoListActivity = (TodoListActivity)getActivity();
+                            todoListActivity.onRestart();
+                            break;
+                        case FromClass.TODO_INFORMATION_ACTIVITY:
+                            TodoInformationActivity todoInformationActivity = (TodoInformationActivity)getActivity();
+                            todoInformationActivity.onRestart();
+                            break;
+                        case FromClass.TODO_UNDER_WAY_LIST_ACTIVITY:
+                            TodoUnderWayListActivity todoUnderWayListActivity = (TodoUnderWayListActivity)getActivity();
+                            todoUnderWayListActivity.onRestart();
+                            break;
+                        case FromClass.TODO_UNDER_WAY_INFORMATION_ACTIVITY:
+                            TodoUnderWayInformationActivity todoUnderWayInformationActivity = (TodoUnderWayInformationActivity)getActivity();
+                            todoUnderWayInformationActivity.onRestart();
+                            break;
+                        default:
+                            break;
                     }
                     break;
             }

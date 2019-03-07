@@ -11,7 +11,6 @@ import model.TodoItem;
 
 public class TodoItemLogic {
     public TodoItem execute(int todoId, Context context) {
-        boolean isLogic;
         TodoItem returnTodoItem;
         //データベースからTODOを取得
         /*TodoItemDAO dao = new TodoItemDAO(context);

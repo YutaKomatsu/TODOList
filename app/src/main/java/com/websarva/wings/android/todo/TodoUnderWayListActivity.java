@@ -17,9 +17,10 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import ActionType.FromClass;
 import Listener.RecyclerItemClickListener;
 import Logic.TodoUnderWayListLogic;
-import model.DialogActionType;
+import ActionType.DialogActionType;
 import model.TodoItem;
 import model.TodoUnderWay;
 import model.User;
@@ -207,7 +208,7 @@ public class TodoUnderWayListActivity extends AppCompatActivity {
                         + "\n" + getString(R.string.tv_underWayTitle) + ":" + todoUnderWayList.get(position).getUnderWayTitle());
                 bundle.putString("button", getString(R.string.tv_delete));
                 bundle.putInt("root", DialogActionType.UNDER_WAY_DELETE);
-                bundle.putString("fromClass", "TodoUnderWayListActivity");
+                bundle.putInt("fromClass",FromClass.TODO_UNDER_WAY_LIST_ACTIVITY);
                 bundle.putBoolean("finishActivity", false);
                 //削除する進捗の情報をを渡す
                 bundle.putSerializable("todoUnderWay", todoUnderWayList.get(position));
@@ -221,7 +222,7 @@ public class TodoUnderWayListActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",true);
-                args.putString("fromClass", "TodoUnderWayListActivity");
+                args.putInt("fromClass",FromClass.TODO_UNDER_WAY_LIST_ACTIVITY);
                 errorDialogFragment.setArguments(args);
                 errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
             }

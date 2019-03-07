@@ -25,12 +25,12 @@ import okhttp3.ResponseBody;
 
 
 public class TodoUnderWayPHP extends AsyncTask<String, Void, String> {
-    TodoUnderWay setTodoUnderWay;
-    TodoUnderWay getTodoUnderWay;
-    List<TodoUnderWay> todoUnderWayList = new ArrayList<>();
-    String actionType;
-    boolean result;
-    CountDownLatch latch;
+    private TodoUnderWay setTodoUnderWay;
+    private TodoUnderWay getTodoUnderWay;
+    private List<TodoUnderWay> todoUnderWayList = new ArrayList<>();
+    private String actionType;
+    private boolean result;
+    private CountDownLatch latch;
     final public static String GET_TODO_UNDER_WAY_LIST = "0";
     final public static String GET_TODO_UNDER_WAY_ITEM= "1";
     final public static String INSERT_TODO_UNDER_WAY = "2";

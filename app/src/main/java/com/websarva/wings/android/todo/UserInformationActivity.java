@@ -8,17 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ActionType.DialogActionType;
 import Logic.UserInfoLogic;
 import model.User;
 
 public class UserInformationActivity extends AppCompatActivity {
     //private変数
-    User user;
-    TextView userIdView;
-    TextView userNameView;
-    TextView passwordView;
-    boolean userChangeFlag = false;
-    boolean showPasswordFlag = false;
+    private User user;
+    private TextView userIdView;
+    private TextView userNameView;
+    private TextView passwordView;
+    private boolean userChangeFlag = false;
+    private boolean showPasswordFlag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,7 @@ public class UserInformationActivity extends AppCompatActivity {
             bundle.putString("title", getString(R.string.tv_inputPassword));
             bundle.putString("msg", getString(R.string.tv_formPassword));
             bundle.putString("button", getString(R.string.tv_passwordShow));
-            bundle.putString("action","showPassword");
+            bundle.putInt("action",DialogActionType.SHOW_PASSWORD);
             bundle.putSerializable("user",user);
             dialogFragment.setArguments(bundle);
             dialogFragment.show(getSupportFragmentManager(),"InputDialogFragment");
@@ -88,7 +89,7 @@ public class UserInformationActivity extends AppCompatActivity {
             bundle.putString("title", getString(R.string.tv_inputPassword));
             bundle.putString("msg", getString(R.string.tv_formPassword));
             bundle.putString("button", getString(R.string.tv_userUpdateTransition));
-            bundle.putString("action","UserUpdate");
+            bundle.putInt("action",DialogActionType.USER_UPDATE);
             bundle.putSerializable("user",user);
             dialogFragment.setArguments(bundle);
             dialogFragment.show(getSupportFragmentManager(),"InputDialogFragment");

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import ActionType.FromClass;
 import Logic.UserListLogic;
 import Logic.UserRegisterLogic;
 import model.User;
@@ -100,6 +101,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                     bundle.putString("msg",getString(R.string.tv_userRegisterResult));
                     bundle.putString("button",getString(R.string.tv_backLoginMenu));
                     bundle.putBoolean("finishActivity",true);
+                    bundle.putInt("fromClass", FromClass.USER_REGISTER_ACTIVITY);
                     dialogFragment.setArguments(bundle);
                     dialogFragment.show(getSupportFragmentManager(),"ResultDialogFragment");
                 //登録失敗時の処理
@@ -110,7 +112,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putStringArrayList("inputErrorList", inputErrorList);
                     args.putBoolean("onResumeFlag",false);
-                    args.putString("fromClass", "UserRegisterActivity");
+                    args.putInt("fromClass", FromClass.USER_REGISTER_ACTIVITY);
                     dialogFragment.setArguments(args);
                     dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
                 }
@@ -120,7 +122,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putStringArrayList("inputErrorList", inputErrorList);
                 args.putBoolean("onResumeFlag",false);
-                args.putString("fromClass", "UserRegisterActivity");
+                args.putInt("fromClass", FromClass.USER_REGISTER_ACTIVITY);
                 dialogFragment.setArguments(args);
                 dialogFragment.show(getSupportFragmentManager(),"ErrorDialogFragment");
             }

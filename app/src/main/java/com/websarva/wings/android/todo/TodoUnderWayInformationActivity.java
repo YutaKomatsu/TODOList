@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import ActionType.FromClass;
 import Logic.TodoUnderWayLogic;
-import model.DialogActionType;
+import ActionType.DialogActionType;
 import model.TodoItem;
 import model.TodoUnderWay;
 import model.User;
@@ -94,7 +94,7 @@ public class TodoUnderWayInformationActivity extends AppCompatActivity {
             bundle.putString("msg",getString(R.string.tv_deleteCheck));
             bundle.putString("button",getString(R.string.tv_delete));
             bundle.putInt("root",DialogActionType.UNDER_WAY_DELETE);
-            bundle.putString("fromClass","TodoUnderWayInformationActivity");
+            bundle.putInt("fromClass",FromClass.TODO_UNDER_WAY_INFORMATION_ACTIVITY);
             bundle.putBoolean("finishActivity",true);
             //削除するTODOの情報をを渡す
             bundle.putSerializable("todoUnderWay",todoUnderWay);
