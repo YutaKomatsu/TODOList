@@ -61,6 +61,7 @@
     <string name="tv_passwordShow">パスワード表示</string>
     <string name="tv_userUpdateTransition">ユーザー更新画面へ移動</string>
     <string name="tv_inputPassword">パスワード入力</string>
+    <string name="tv_karipassword">********</string>
     <!-- ユーザー更新画面-->
     <string name="tv_userIdView">ユーザーID　※変更不可</string>
     <string name="tv_userUpdateResultTitle">ユーザー更新完了</string>

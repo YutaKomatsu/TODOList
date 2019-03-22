@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import ActionType.FromClass;
 import Logic.LoginLogic;
+import Logic.PasswordHashLogic;
 import model.User;
 
 public class TodoLoginActivity extends AppCompatActivity {
@@ -48,8 +49,16 @@ public class TodoLoginActivity extends AppCompatActivity {
     private class ExecuteLogin implements View.OnClickListener{
         @Override
         public void onClick(View view){
-            //入力されたユーザーID、パスワードを取得し、比較用のユーザー情報インスタンスを生成
-            User user = new User(inputUserID.getText().toString(), inputPassword.getText().toString());
+            //入力されたユーザーID、パスワードを取得
+            String userId = inputUserID.getText().toString();
+            String password = inputPassword.getText().toString();
+            //パスワードをハッシュ化する
+            PasswordHashLogic passwordHashLogic = new PasswordHashLogic();
+            String hashPassword = passwordHashLogic.encryptStr(password);
+            passwordHashLogic = null;
+            password = null;
+            // 、比較用のユーザー情報インスタンスを生成
+            User user = new User(userId, hashPassword);
 
             //ユーザーリスト取得
             LoginLogic loginLogic = new LoginLogic();

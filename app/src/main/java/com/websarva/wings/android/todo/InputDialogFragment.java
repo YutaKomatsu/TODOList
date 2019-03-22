@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import ActionType.DialogActionType;
 import ActionType.FromClass;
+import Logic.PasswordHashLogic;
 import model.User;
 
 public class InputDialogFragment extends DialogFragment {
@@ -55,12 +56,16 @@ public class InputDialogFragment extends DialogFragment {
             switch(witch){
                 case DialogInterface.BUTTON_POSITIVE:
                     EditText editText = inputView.findViewById(R.id.dialog_edittext);
+                    //入力されたパスワードをハッシュ化
+                    PasswordHashLogic passwordHashLogic = new PasswordHashLogic();
+                    String hashPassword = passwordHashLogic.encryptStr(editText.getText().toString());
+                    passwordHashLogic = null;
                     //入力値とパスワードを比較
-                    if(StringUtils.equals(editText.getText().toString(),user.getPass())){
+                    if(StringUtils.equals(hashPassword,user.getPass())){
                         if(action == DialogActionType.SHOW_PASSWORD) {
                             // UserInformationActivityのインスタンスを取得
                             UserInformationActivity userInformationActivity = (UserInformationActivity) getActivity();
-                            userInformationActivity.showPassword();
+                            userInformationActivity.showPassword(editText.getText().toString());
                         }else{
                             //ユーザー情報更新画面へ遷移
                             Intent intent = new Intent(getContext(),UserUpdateActivity.class);

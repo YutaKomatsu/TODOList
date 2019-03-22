@@ -35,7 +35,7 @@ public class UserInformationActivity extends AppCompatActivity {
         userNameView = findViewById(R.id.tvUserNameView);
         userNameView.setText(user.getName());
         passwordView = findViewById(R.id.tvPasswordView);
-        passwordView.setText(user.getPass());
+        passwordView.setText(R.string.tv_karipassword);
 
         //ボタンをセット
         Button showPasswordButton = findViewById(R.id.tvShowPassword);
@@ -53,11 +53,12 @@ public class UserInformationActivity extends AppCompatActivity {
         UserInfoLogic userInfoLogic = new UserInfoLogic();
         user = userInfoLogic.execute(user.getId(),UserInformationActivity.this);
         userNameView.setText(user.getName());
-        passwordView.setText(user.getPass());
         if(showPasswordFlag){
             showPasswordFlag = false;
         }else{
+            passwordView.setText(R.string.tv_karipassword);
             passwordView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordView.setTextSize(25);
         }
     }
 
@@ -109,8 +110,9 @@ public class UserInformationActivity extends AppCompatActivity {
         }
     }
 
-    public void showPassword(){
+    public void showPassword(String password){
         passwordView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        passwordView.setText(password);
         showPasswordFlag = true;
         onRestart();
     }

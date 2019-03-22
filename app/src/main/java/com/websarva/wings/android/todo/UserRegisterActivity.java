@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ActionType.FromClass;
+import Logic.PasswordHashLogic;
 import Logic.UserListLogic;
 import Logic.UserRegisterLogic;
 import model.User;
@@ -89,8 +90,14 @@ public class UserRegisterActivity extends AppCompatActivity {
             }
 
             if(inputErrorList.size() == 0) {
+                //パスワードをハッシュ化する
+                PasswordHashLogic passwordHashLogic = new PasswordHashLogic();
+                String hashPassword = passwordHashLogic.encryptStr(password);
+                passwordHashLogic = null;
+                password = null;
+                checkPassword = null;
                 //ユーザー情報を登録する
-                User registerUser = new User(userId,userName,password,1);
+                User registerUser = new User(userId,userName,hashPassword,1);
                 UserRegisterLogic userRegisterLogic = new UserRegisterLogic();
                 boolean isUserRegister = userRegisterLogic.execute(registerUser, UserRegisterActivity.this);
                 if(isUserRegister) {

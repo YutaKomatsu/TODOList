@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 
 import ActionType.FromClass;
+import Logic.PasswordHashLogic;
 import Logic.UserUpdateLogic;
 import model.User;
 
@@ -86,8 +87,13 @@ public class UserUpdateActivity extends AppCompatActivity {
 
 
             if(inputErrorList.size() == 0) {
+                //パスワードをハッシュ化する
+                PasswordHashLogic passwordHashLogic = new PasswordHashLogic();
+                String hashPassword = passwordHashLogic.encryptStr(password);
+                passwordHashLogic = null;
+                password = null;
                 //ユーザー情報を登録する
-                User updateUser = new User(userId,userName,password,1);
+                User updateUser = new User(userId,userName,hashPassword,1);
                 UserUpdateLogic userUpdateLogic = new UserUpdateLogic();
                 boolean isUserUpdate = userUpdateLogic.execute(updateUser,UserUpdateActivity.this);
                 if(isUserUpdate) {
