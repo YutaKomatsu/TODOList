@@ -46,22 +46,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:orientation="horizontal" >
         <Button
-            android:id="@+id/tvTodoUnderWayRegister"
+            android:id="@+id/tvTodoUnderWayListUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:textSize="25sp"
-            android:text="@string/tv_underWayRegister"/>
-        <Button
-            android:id="@+id/tvTodoUnderWayClose"
-            android:layout_width="wrap_content"
+            android:text="@string/tv_update"/>
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:textSize="25sp"
-            android:text="@string/tv_close"/>
+            android:gravity="right"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/tvTodoUnderWayRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="25sp"
+                android:text="@string/tv_underWayRegister"/>
+            <Button
+                android:id="@+id/tvTodoUnderWayClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="25sp"
+                android:text="@string/tv_close"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

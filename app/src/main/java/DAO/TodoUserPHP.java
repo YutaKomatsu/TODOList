@@ -52,7 +52,7 @@ public class TodoUserPHP extends AsyncTask<String, Void, String> {
         //実行アクションを取得
         actionType = params[1];
         //HTTP処理用オプジェクト作成
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = Okhttp3Client.getOkHttpClient();
         //JSON用変数
         StringBuilder sb = new StringBuilder();
         //リクエスト

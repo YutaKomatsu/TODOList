@@ -58,6 +58,10 @@ public class TodoListActivity extends AppCompatActivity{
         welcomeUser = findViewById(R.id.tvWelcomeUser);
         welcomeUser.setText(getString(R.string.tv_welcomeUser,user.getName()));
 
+        //更新ボタンのセット
+        Button updateListButton = findViewById(R.id.tvTodoListUpdate);
+        updateListButton.setOnClickListener(new TodoListUpdate());
+
         //検索ボタンのセット
         Button searchButton = findViewById(R.id.tvTodoSearch);
         searchButton.setOnClickListener(new TodoSearch());
@@ -200,6 +204,15 @@ public class TodoListActivity extends AppCompatActivity{
     //戻るボタン無効化
     @Override
     public void onBackPressed() {
+    }
+
+    //更新ボタン押下時
+    private class TodoListUpdate implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            // 更新
+            onRestart();
+        }
     }
 
     //検索ボタン押下時

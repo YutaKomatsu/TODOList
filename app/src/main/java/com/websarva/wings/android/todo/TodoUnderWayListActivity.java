@@ -51,6 +51,8 @@ public class TodoUnderWayListActivity extends AppCompatActivity {
         workUserNameView.setText("：" + todoItem.getUserName());
 
         //ボタンのセット
+        Button updateListButton = findViewById(R.id.tvTodoUnderWayListUpdate);
+        updateListButton.setOnClickListener(new TodoUnderWayListUpdate());
         Button underWayButton = findViewById(R.id.tvTodoUnderWayRegister);
         underWayButton.setOnClickListener(new TodoUnderWayRegister());
         Button underWayCloseButton = findViewById(R.id.tvTodoUnderWayClose);
@@ -121,6 +123,15 @@ public class TodoUnderWayListActivity extends AppCompatActivity {
         RecyclerListAdapter adapter = new RecyclerListAdapter(todoUnderWayList);
         // RecyclerViewにアダプターをセット
         view.setAdapter(adapter);
+    }
+
+    //更新ボタン押下時
+    private class TodoUnderWayListUpdate implements View.OnClickListener{
+        @Override
+        public void onClick(View view){
+            // 更新
+            onRestart();
+        }
     }
 
     //進捗報告ボタン押下時
